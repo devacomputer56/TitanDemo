@@ -1,6 +1,6 @@
-# 💬 Chatbot template
+# Titan Ultra App
 
-A simple Streamlit app that shows how to build a chatbot using OpenAI's GPT-3.5.
+This is our latest Chat App.
 
 [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://chatbot-template.streamlit.app/)
 
