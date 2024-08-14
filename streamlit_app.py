@@ -1,56 +1,57 @@
-import streamlit as st
-from openai import OpenAI
+#This is code of Titan App.
+#Developed by DeVa Quantum Genesis.
+#Welcome to Titan side.
 
-# Show title and description.
-st.title("💬 Chatbot")
-st.write(
-    "This is a simple chatbot that uses OpenAI's GPT-3.5 model to generate responses. "
-    "To use this app, you need to provide an OpenAI API key, which you can get [here](https://platform.openai.com/account/api-keys). "
-    "You can also learn how to build this app step by step by [following our tutorial](https://docs.streamlit.io/develop/tutorials/llms/build-conversational-apps)."
+pip install streamlit google-generativeai google-ai.generativelanguage
+
+import streamlit as st
+import google.generativeai as gemini
+import google.ai.generativelanguage as glm
+
+genai.configure(api_key="My API")
+
+#Title
+
+st.set_page_config(
+    page_title="Titan Ultra"
 )
 
-# Ask user for their OpenAI API key via `st.text_input`.
-# Alternatively, you can store the API key in `./.streamlit/secrets.toml` and access it
-# via `st.secrets`, see https://docs.streamlit.io/develop/concepts/connections/secrets-management
-openai_api_key = st.text_input("OpenAI API Key", type="password")
-if not openai_api_key:
-    st.info("Please add your OpenAI API key to continue.", icon="🗝️")
-else:
+st.title("Titan Ultra")
+st.subheader("How can I help you?")
 
-    # Create an OpenAI client.
-    client = OpenAI(api_key=openai_api_key)
+#Start Session
+if "chat_session"not in st.sessiion_state :
+    #Loading Titan Ultra Model
+    fine_tuned_model = genai.GenerativeModel.from_pretrained("My Link")
 
-    # Create a session state variable to store the chat messages. This ensures that the
-    # messages persist across reruns.
-    if "messages" not in st.session_state:
-        st.session_state.messages = []
+st.session_state["chat_session"] =
+fine_tuned_model.start_chat(history=[
+    glm.Content(role="user",
+                parts=[glm.Part(text="あなたはTitanという大規模言語モデルです。")])
 
-    # Display the existing chat messages via `st.chat_message`.
-    for message in st.session_state.messages:
-        with st.chat_message(message["role"]):
-            st.markdown(message["content"])
+    glm.Content(role="model",
+                parts=[glm.Part(text="かしこまりました")])
+])
+st.session_state["chat_history"] = []
 
-    # Create a chat input field to allow the user to enter a message. This will display
-    # automatically at the bottom of the page.
-    if prompt := st.chat_input("What is up?"):
 
-        # Store and display the current prompt.
-        st.session_state.messages.append({"role": "user", "content": prompt})
-        with st.chat_message("user"):
-            st.markdown(prompt)
+for massage in
+st.session_state["chat_history"]:
+    with
+    st.chat_massage(massage["role"]):
+        st.markdown(massage["content"])
 
-        # Generate a response using the OpenAI API.
-        stream = client.chat.completions.create(
-            model="gpt-3.5-turbo",
-            messages=[
-                {"role": m["role"], "content": m["content"]}
-                for m in st.session_state.messages
-            ],
-            stream=True,
-        )
+if prompt := st.chat_input ("さまざまなことを尋ねてみてください"):
 
-        # Stream the response to the chat using `st.write_stream`, then store it in 
-        # session state.
-        with st.chat_message("assistant"):
-            response = st.write_stream(stream)
-        st.session_state.messages.append({"role": "assistant", "content": response})
+    with st.chat_massage("user"):
+        st.markdown(prompt)
+
+st.session_state["chat_history"].
+append({"role":"user","content":prompt})
+
+response = st.session_state["chat_session"].send_massage(prompt)
+
+with st.chat_massage("assistant"):
+    st.markdown(response.text)
+
+st.session_state["chat_history"].append({"role":"assistant","content":response.text})
