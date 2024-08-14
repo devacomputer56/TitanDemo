@@ -1,7 +1,6 @@
 # Titan Ultra App
 
-This is our latest Chat App.
-
+私たちの最大のモデルを体感しましょう。
 [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://chatbot-template.streamlit.app/)
 
 ### How to run it on your own machine
